@@ -5,7 +5,7 @@ This repository showcases various bioinformatics analyses that I have expertise 
 * Gene set enrichment analysis (GSEA) on bulk RNAseq data
 * Weighted gene co-expression network analysis (WGCNA) on bulk RNAseq data
 * single cell RNAseq analyses using Seurat: Includes dimensionality reduction, clustering and cell type identification.
-* single cell RNAseq analyses Monocle: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
+* single cell RNAseq analyses using Monocle: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
 
 Upcoming projects:
 * Snakemake
