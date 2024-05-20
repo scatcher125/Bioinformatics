@@ -37,6 +37,9 @@ meta_data <- c("ctr", "ctr", "ctr", "trt", "trt", "trt")
 # DGElist data object
 dge <- edgeR::DGEList(counts=gexp_mat,
                       group=factor(meta_data))
+# save metadata file for future analyses
+#write.csv(dge$samples["group"],
+#            file="~/Bioinformatics/R/data/trt.vs.ctr_metadata.csv")
 
 ## Analysis: single factor design
 # Filter genes with low counts
