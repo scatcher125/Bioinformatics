@@ -11,5 +11,5 @@
 
 # Set parameters
 
-# User input is not required beyong this point
+# User input is not required beyond this point
 # Analysis
