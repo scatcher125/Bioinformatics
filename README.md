@@ -1,5 +1,5 @@
 # Bioinformatics
-This repository showcases various bioinformatics analyses that I have expertise with. Below is an overview of the analyses showcased in this repository:
+The repository `R_Workflows` showcases various bioinformatics analyses that I have expertise with. Below is an overview of the analyses showcased in this repository:
 
 * Differential gene expression analysis using `edgeR` on bulk RNAseq data
 * Gene set enrichment analysis (`GSEA`) on bulk RNAseq data
@@ -7,9 +7,11 @@ This repository showcases various bioinformatics analyses that I have expertise 
 * single cell RNAseq analyses using `Seurat`: Includes dimensionality reduction, clustering and cell type identification.
 
 Upcoming projects:
-* single cell RNAseq analyses using `Monocle`: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
+* Single cell RNAseq analyses using `Monocle`: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
+* ATAC-seq methylation data analysis
 * `Snakemake`
-* Survival analysis using `survminer` or `matchit`
+* Survival analysis using `survminer`
+* `matchit`
 * Python script
 * BASh shell script
 * Spatial RNAseq
