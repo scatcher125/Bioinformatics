@@ -17,3 +17,5 @@ Upcoming projects:
 * Spatial RNAseq
 * GWAS analysis
 * GenAI
+
+Disclaimer: All data in the `Interviews` portion is obtained from relevant publications.
