@@ -1,6 +1,8 @@
 # QC Interpreter Agent
 
-A LangGraph-based agentic workflow that parses sequencing Quality Control (QC) metrics and uses an LLM to generate plain-English summaries for non-computational research collaborators. This tool is built to support Illumina 30x coverage Whole Exome Sequencing (WES) data alignment assessed using Alfred -- an efficient and versatile BAM (Binary Alignment Map) alignment QC tool. As input, it takes a `.json` file produced by Alfred -- user must unzip `.json.gz` before passing into the workflow.
+Whole exome sequencing captures the protein-coding regions of the human genome and is  widely used in disease research and clinical genomics — but raw sequencing data must pass rigorous quality checks before any biological conclusions can be drawn.
+
+This agent is a LangGraph-based agentic workflow that parses sequencing Quality Control (QC) metrics and uses an LLM to generate plain-English summaries for non-computational research collaborators. It is built to support Illumina 30x coverage Whole Exome Sequencing (WES) data alignment assessed using Alfred — an efficient and versatile BAM (Binary Alignment Map) alignment QC tool.
 
 ## Purpose
 
@@ -61,7 +63,19 @@ python qc_agent.py --input sample_qc.json --model claude-3-5-sonnet-20241022 --p
 
 ## Input Format
 
-The agent expects a JSON file produced by Alfred (`alfred qc -r ref.fa -b targets.bed -j qc.json.gz sample.bam`). The following fields are used (all optional except `sample_id`):
+Generate the input file by running Alfred with a BED file of exome targets:
+
+```bash
+alfred qc -r ref.fa -b targets.bed -j qc.json.gz sample.bam
+```
+
+The agent expects an unzipped `.json` file. Alfred outputs `.json.gz` by default — remember to unzip before running:
+
+```bash
+gunzip qc.json.gz
+```
+
+The following fields are used (all optional except `sample_id`):
 
 ```json
 {
@@ -81,7 +95,7 @@ The agent expects a JSON file produced by Alfred (`alfred qc -r ref.fa -b target
 }
 ```
 
-Note: `FractionInBed` and `EnrichmentOverBed` require Alfred to be run with a BED file (`-b` flag). If absent, they will be flagged as MISSING and contribute a WARN to the overall verdict.
+`FractionInBed` and `EnrichmentOverBed` require the `-b` flag. If absent, they will be flagged as MISSING and contribute a WARN to the overall verdict.
 
 ## QC Thresholds
 
