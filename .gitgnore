@@ -41,3 +41,5 @@ Thumbs.db
 # Project data and results
 Data/
 Results/
+**/Data/
+**/Results/
