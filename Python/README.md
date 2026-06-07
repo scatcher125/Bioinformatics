@@ -42,6 +42,8 @@ On Windows (PowerShell):
 $env:GOOGLE_API_KEY = "your-key-here"
 ```
 
+Note: Google Gemini is the default LLM provider because it offers a free API tier through Google AI Studio with no billing or credit card required, making this tool accessible without any upfront cost. OpenAI and Anthropic are supported as alternatives but require paid API access.
+
 ## Usage
 
 ```bash
