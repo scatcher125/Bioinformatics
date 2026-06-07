@@ -6,7 +6,7 @@ The repository `R` showcases bioinformatics workflows that I have expertise with
 * Weighted gene co-expression network analysis (`WGCNA`) on bulk RNAseq data
 * single cell RNAseq analyses using `Seurat`: Includes dimensionality reduction, clustering and cell type identification.
 
-The repository `Python` contains my attempts to learn deploying agentic AI tools using LangGraph.
+The repository `Python` contains an **Agentic workflow** I created using LangGraph to interpret Alfred sequencing alignment QC metrics.
 
 Upcoming & planned projects:
 * Single cell RNAseq analyses using `Monocle`: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
