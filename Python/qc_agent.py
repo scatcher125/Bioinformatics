@@ -1,16 +1,20 @@
-
 # QC Interpreter Agent for Alfred BAM Alignment Statistics
 # Reva S
 # 07-Jun-206
 
 # DESCRIPTION
 # QC Tool: Alfred is an efficient and versatile BAM alignment QC tool.
-# Input: Alfred BAM alignment QC `*.json.gz` output file from standard 30x Illumina whole exome 
+# Input:
+# - Alfred BAM alignment QC `*.json.gz` output file from standard 30x Illumina whole exome 
 #   sequencing on human data.
+# - Agent uses OpenAI by default but can be configured to use other LLM providers supported by LangChain.
 # Output: Report including PASS or FAIL status and plain English summary.
 # Usage:
 #   python qc_agent.py --input sample_qc.json
 #   python qc_agent.py --input sample_qc.json --output report.txt
+#   python qc_agent.py --input sample_qc.json --model gemini-2.5-flash
+#   python qc_agent.py --input sample_qc.json --model claude-3-5-sonnet-20241022 --provider anthropic
+#   python qc_agent.py --input sample_qc.json --model gpt-4o --provider openai
 # ---------
 
 # load requirements
@@ -18,7 +22,7 @@ import json
 import argparse
 from typing import TypedDict
 from langgraph.graph import StateGraph, END
-from openai import OpenAI
+from langchain.chat_models import init_chat_model
 
 # NODE 1
 # Define "State" object
@@ -28,6 +32,8 @@ class QCState(TypedDict):
     llm_summary: str         # Natural language LLM output
     pass_fail: str           # "PASS", "WARN", or "FAIL" status
     output_report: str       # Final report
+    model_name: str          # LLM model name passed through state
+    model_provider: str      # LLM provider passed through state
 
 # Define QC thresholds
 # - Thresholds are calibrated for 30x Illumina whole exome sequencing on human data.
@@ -90,7 +96,7 @@ def evaluate_metrics(parsed_metrics: dict) -> dict:
             status = "WARN"
 
         # Re-check high-end for metrics with bounds in both directions
-        # (e.g. MedianInsertSize, GCContent)
+        # (e.g. GCContent)
         if status == "PASS":
             if "fail_high" in thresholds and value > thresholds["fail_high"]:
                 status = "FAIL"
@@ -153,7 +159,18 @@ def parse_qc_metrics(state: QCState) -> QCState:
 # function: generate QC summary in natural language
 def generate_llm_summary(state: QCState) -> QCState:
     """Use an LLM to generate a plain-English QC summary."""
-    client = OpenAI()  # Uses OPENAI_API_KEY env variable
+    # init_chat_model selects the correct LangChain integration based on model/provider.
+    # The appropriate API key must be set as an environment variable:
+    #   OpenAI:    OPENAI_API_KEY
+    #   Anthropic: ANTHROPIC_API_KEY
+    #   Google:    GOOGLE_API_KEY
+    llm = init_chat_model(
+        model=state["model_name"],
+        model_provider=state["model_provider"] if state["model_provider"] else None,
+        temperature=0.3,
+        max_tokens=1500,
+    )
+
     metrics = state["parsed_metrics"]
     evaluated = metrics["evaluated"]
 
@@ -195,20 +212,15 @@ Metric notes:
 - Mapped: total number of mapped reads (INFO only)
 - DuplicateMarked: total number of duplicate reads (INFO only)
 
-Please provide:
-1. A 2-3 sentence plain-English summary of the sample quality
-2. Whether downstream analysis (e.g. variant calling) can proceed
-3. Any recommended actions if there are issues
+Please write a short plain prose response (no numbered lists, no bullet points) covering:
+- A 2-3 sentence summary of the overall sample quality
+- Whether downstream analysis (e.g. variant calling) can proceed
+- Any recommended actions if there are issues
+Keep the total response under 120 words.
 """
 
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.3,
-        max_tokens=400,
-    )
-
-    summary = response.choices[0].message.content.strip()
+    response = llm.invoke(prompt)
+    summary = response.content.strip()
     return {**state, "llm_summary": summary}
 
 
@@ -272,18 +284,26 @@ def main():
     parser = argparse.ArgumentParser(description="LangGraph QC Interpreter Agent")
     parser.add_argument("--input", required=True, help="Path to QC JSON file")
     parser.add_argument("--output", default=None, help="Optional path to save report")
+    parser.add_argument("--model", default="gemini-2.5-flash", help="LLM model name (default: gemini-2.5-flash)")
+    parser.add_argument("--provider", default="google_genai",
+                        help="LLM provider: openai, anthropic, google_genai, etc. "
+                             "Optional — init_chat_model infers from model name if not set.")
     args = parser.parse_args()
 
     with open(args.input) as f:
         qc_data = json.load(f)
 
     graph = build_graph()
-    result = graph.invoke({"raw_input": qc_data})
+    result = graph.invoke({
+        "raw_input": qc_data,
+        "model_name": args.model,
+        "model_provider": args.provider,
+    })
 
     print(result["output_report"])
 
     if args.output:
-        with open(args.output, "w") as f:
+        with open(args.output, "w", encoding="utf-8") as f:
             f.write(result["output_report"])
         print(f"Report saved to {args.output}")
 
