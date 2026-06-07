@@ -1,9 +1,0 @@
-{
-    "sample_id": "MM_Patient_001_WES",
-    "total_reads": 85432100,
-    "percent_mapped": 76.3,
-    "percent_duplicates": 34.7,
-    "mean_coverage": 45.2,
-    "percent_gc": 48.1,
-    "median_insert_size": 185
-}

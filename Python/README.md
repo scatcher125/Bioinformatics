@@ -2,8 +2,7 @@
 
 A LangGraph-based agentic workflow that parses sequencing QC metrics and uses an LLM to generate plain-English summaries for non-computational research collaborators. This tool is built to support Illumina 30x coverage Whole Exome Sequencing (WES) data alignment assesed using Alfred - an efficient and versatile BAM alignment QC tool. As input, it takes a `.json` file ().
 
-
-## Motivation
+## Purpose
 
 In genomics research, QC reports are full of technical metrics (mapping rates, duplication rates, coverage depth) that are essential for bioinformaticians but opaque to bench scientists and clinicians. This agent bridges that gap by automatically interpreting QC outputs and producing clear, actionable summaries — keeping scientific discussions focused on biology rather than the pipeline.
 

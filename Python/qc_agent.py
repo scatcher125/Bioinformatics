@@ -4,21 +4,13 @@
 # 07-Jun-206
 
 # DESCRIPTION
-# Alfred is an efficient and versatile BAM alignment QC method.
-# After aligning raw FASTQ to a BAM file, Alfred can be run on 
-# the output BAM file to produce QC output files. This script 
-# is a LangGraph-based agentic workflow. It takes as input a 
-# single `*.json.gz` output file, and outputs a QC summary report 
-# with plain English interpretations for non-bioinformaticians. 
-
-# Input: Alfred BAM alignment QC `*.json.gz` output file from 
-#   standard 30x Illumina whole exome sequencing on human data.
-# Output: Report including PASS or FAIL status and plain English 
-#   summary.
+# QC Tool: Alfred is an efficient and versatile BAM alignment QC tool.
+# Input: Alfred BAM alignment QC `*.json.gz` output file from standard 30x Illumina whole exome 
+#   sequencing on human data.
+# Output: Report including PASS or FAIL status and plain English summary.
 # Usage:
 #   python qc_agent.py --input sample_qc.json
 #   python qc_agent.py --input sample_qc.json --output report.txt
-
 # ---------
 
 # load requirements
@@ -251,7 +243,7 @@ METRICS SUMMARY
 
   Legend: ✅ PASS  ⚠️ WARN  ❌ FAIL  ℹ️ INFO (not thresholded)  ❓ MISSING
 
-INTERPRETATION (for research team)
+BIOLOGICAL INTERPRETATION
 -----------------------------------
 {state['llm_summary']}
 
@@ -274,7 +266,6 @@ def build_graph() -> StateGraph:
     graph.add_edge("format_report", END)
 
     return graph.compile()
-
 
 # Main function
 def main():
