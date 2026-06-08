@@ -13,7 +13,7 @@ The repository `R` showcases bioinformatics workflows that I have expertise with
 
 The repository `Python` contains an **Agentic workflow** I created using LangGraph to interpret Alfred sequencing alignment QC metrics.
 
-## Upcoming & planned projects:
+## Upcoming projects:
 * Single cell RNAseq analyses using `Monocle`: Includes dimensionality reduction, clustering, cell type identification and differentiation trajectory analysis.
 * Survival analysis using `survminer`
 * MAFtools
