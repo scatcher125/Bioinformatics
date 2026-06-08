@@ -156,6 +156,7 @@ for future runs.
 - Support Whole Genome Sequencing (WGS)
 - Batch processing across multiple samples
 - Gzip input support (`*.json.gz`) directly
-- Slack/email notification integration
-- Interactive HTML report output
+- Mermaid workflow diagram: Once the program supports more analysis types, documenting the exact nodes for a workflow will become more critical.
+- Email notification integration
+- Interactive HTML report output to improve visual appeal
 - RAG over internal QC history to contextualize current sample against cohort
