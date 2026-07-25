@@ -1,0 +1,72 @@
+# ==========================================
+# R
+# ==========================================
+# History and workspace images
+.Rhistory
+.RData
+.RDataTmp
+
+# R package build artifacts
+/*.Rcheck/
+.Rapp.history
+
+# RStudio project configuration and caches
+.Rproj.user/
+.Rtestimonials
+
+# knitr / rmarkdown caches and outputs
+/*_cache/
+/cache/
+*.meta
+
+# ==========================================
+# Python
+# ==========================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Packaging and testing build artifacts
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# ==========================================
+# Data etc.
+# ==========================================
+# Large data formats
+*.csv
+*.xlsx
+*.rds
+*.parquet
+*.sqlite
+*.db
+*.tsv
+*.gz
+*.txt
+*/data/*
+
+# Local environment secrets
+.env
+*.env
+
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
