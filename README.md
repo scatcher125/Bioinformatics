@@ -7,7 +7,8 @@ The repository `R` showcases bioinformatics workflows that I have expertise with
 * Differential gene expression analysis using `edgeR` on bulk RNAseq data
 * Gene set enrichment analysis (`GSEA`) on bulk RNAseq data
 * Weighted gene co-expression network analysis (`WGCNA`) on bulk RNAseq data
-* single cell RNAseq analyses using `Seurat`: Includes dimensionality reduction, clustering and cell type identification.
+* Single cell RNAseq analyses using `Seurat`: Includes dimensionality reduction, clustering and cell type identification.
+* Population genetics: complete GWAS meta-analysis summarized in a Quarto report
 
 ## Python
 
